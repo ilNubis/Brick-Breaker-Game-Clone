@@ -1,11 +1,11 @@
 package org.nubis.brick.game;
 
-import javax.swing.*;
-import java.awt.*;
+import org.nubis.brick.game.utils.GameView;
+import org.nubis.brick.game.utils.Vector2D;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
-public class Main{
+public class Main {
     public static void main(String[] args) {
         //1. Create the frame.
         GameView mainWindow = new GameView();
@@ -24,8 +24,11 @@ public class Main{
             if (execTimeFrame >= TIME_SINGLE_FRAME || startTime == 0) {
                 startTime = System.nanoTime();
                 // ... Code
-                mainWindow.update();
-                endTime = System.nanoTime();
+                Vector2D prova = new Vector2D(0, 100);
+                System.out.println(prova.getMug());
+                prova.setDegree(270);
+                System.out.println(prova.getY());
+
             } else{
                 endTime = System.nanoTime();
             }
