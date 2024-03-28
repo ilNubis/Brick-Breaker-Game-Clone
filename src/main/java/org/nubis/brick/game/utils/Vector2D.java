@@ -76,10 +76,12 @@ public class Vector2D {
     public void add(double x, double y) {
         this.x += x;
         this.y += y;
+        this.mug = getMug();
+        this.degree = getDegree();
     }
 
     public void add(@NotNull Vector2D vector) {
-        add(vector.getX(), vector.getY());
+        add(vector.getRealX(), vector.getRealY());
     }
 
     public void sub(float x, float y) {
@@ -125,5 +127,9 @@ public class Vector2D {
         this.y = Math.round(Math.sin(radians));
 
         this.setMug(this.mug);
+    }
+
+    public void str() {
+        System.out.println("("+Double.toString(this.x)+", " +Double.toString(this.y)+ ")");
     }
 }

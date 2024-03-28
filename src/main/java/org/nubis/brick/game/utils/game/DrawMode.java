@@ -1,4 +1,4 @@
-package org.nubis.brick.game.utils;
+package org.nubis.brick.game.utils.game;
 
 public enum DrawMode {
     IMAGE,

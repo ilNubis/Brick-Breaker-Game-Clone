@@ -1,4 +1,8 @@
-package org.nubis.brick.game.utils;
+package org.nubis.brick.game.utils.game;
+
+import org.nubis.brick.game.utils.Vector2D;
+import org.nubis.brick.game.utils.game.CollideShape;
+import org.nubis.brick.game.utils.game.DrawMode;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +17,7 @@ public class GameEntity {
 
     private Image sprite;
 
-    private Vector2D position = new Vector2D(0, 0);
+    public Vector2D position = new Vector2D(0, 0);
 
     public GameEntity(String spritePath) {
         setSprite(spritePath);
@@ -51,7 +55,7 @@ public class GameEntity {
     public void draw(Graphics g){
         switch (this.drawMode){
             case AUTO -> {
-
+                g.setColor(new Color(0, 0, 0));
                 switch (this.collideShape){
                     case RECT -> {
                         g.fillRect(

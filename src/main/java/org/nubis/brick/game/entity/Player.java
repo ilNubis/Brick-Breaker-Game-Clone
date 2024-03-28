@@ -1,10 +1,8 @@
 package org.nubis.brick.game.entity;
 
-import org.nubis.brick.game.utils.CollideShape;
-import org.nubis.brick.game.utils.GameEntity;
+import org.nubis.brick.game.utils.game.CollideShape;
+import org.nubis.brick.game.utils.game.GameEntity;
 import org.nubis.brick.game.utils.Vector2D;
-
-import java.awt.*;
 
 public class Player extends GameEntity {
 
