@@ -4,7 +4,7 @@ public class BooleanList{
 
     private int availableSlot = 1;
 
-    private int slotDimension = 5;
+    private final int slotDimension = 5;
 
     private boolean cardSlot[][];
 
@@ -68,5 +68,13 @@ public class BooleanList{
 
         index -= (int)((slotTarghet)*slotDimension);
         return this.cardSlot[(int)(slotTarghet)-1][index];
+    }
+
+    public int getSlotDimension() {
+        return this.slotDimension;
+    }
+
+    public int getAvailableSlot() {
+        return this.availableSlot;
     }
 }

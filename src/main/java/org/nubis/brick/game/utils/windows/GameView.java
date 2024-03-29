@@ -11,7 +11,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class GameView extends JFrame implements KeyListener {
+
+    private Color backgroundColor = new Color(255, 255, 255);
+
     private Image brick;
+
     private Player player = new Player(
             new Vector2D(10, 10),
             new Vector2D(30, 60)
@@ -25,6 +29,7 @@ public class GameView extends JFrame implements KeyListener {
         setSize(500, 500);
         setLocation(400, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setBackground(this.backgroundColor);
         setVisible(true);
         loadPics();
     }
@@ -34,9 +39,10 @@ public class GameView extends JFrame implements KeyListener {
 
         repaint();
     }
-    public void paint(@NotNull Graphics g){ // 30 pixel gap on Y axes
-        this.player.draw(g);
 
+    public void paint(@NotNull Graphics g){ // 30 pixel gap on Y axesù
+        super.paint(g);
+        this.player.draw(g);
     }
 
     public void update(){
@@ -46,10 +52,11 @@ public class GameView extends JFrame implements KeyListener {
         if(keyLogger.getKeyState('a')) direction.add(-1, 0);
         if(keyLogger.getKeyState('s')) direction.add(0, 1);
         if(keyLogger.getKeyState('d')) direction.add(1, 0);
+        if(keyLogger.getKeyState(' ')) this.player.setPosition(30, 60);
 
 
         this.player.position.add(direction);
-        this.player.position.str();
+        repaint();
     }
 
     @Override

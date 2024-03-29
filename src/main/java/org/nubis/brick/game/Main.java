@@ -25,6 +25,7 @@ public class Main {
                 startTime = System.nanoTime();
                 // ... Code
                 mainWindow.update();
+                //System.out.println(SEC_NSEC/execTimeFrame);
 
             } else{
                 endTime = System.nanoTime();

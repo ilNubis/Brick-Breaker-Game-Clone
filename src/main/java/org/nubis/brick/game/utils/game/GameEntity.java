@@ -106,6 +106,8 @@ public class GameEntity {
         return this.position;
     }
 
+    public Vector2D getShapeDimension() { return this.shapeDimension; }
+
 }
 
 
