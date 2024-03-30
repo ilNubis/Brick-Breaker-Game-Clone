@@ -26,4 +26,5 @@ public class Player extends GameEntity {
     public Player(String spritePath, CollideShape collideShape) {
         super(spritePath, collideShape);
     }
+
 }

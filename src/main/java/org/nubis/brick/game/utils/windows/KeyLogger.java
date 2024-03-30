@@ -4,9 +4,9 @@ import org.nubis.brick.game.utils.BooleanList;
 
 
 public class KeyLogger {
-    private final BooleanList keyStateList = new BooleanList();
+    private BooleanList stateLogger = new BooleanList();
 
-    public void setKeyState(char keyChar, boolean state) { this.keyStateList.insert(state, keyChar); }
+    public void setKeyState(char keyChar, boolean keyState) { this.stateLogger.insert(keyState, (int)(keyChar)); }
 
-    public boolean getKeyState(char keyChar) { return this.keyStateList.get(keyChar); }
+    public boolean getKeyState(char keyChar) { return this.stateLogger.get((int)(keyChar)); }
 }

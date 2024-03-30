@@ -6,71 +6,89 @@ import org.nubis.brick.game.utils.Vector2D;
 import org.nubis.brick.game.utils.windows.KeyLogger;
 
 import javax.swing.*;
+import javax.swing.plaf.TableHeaderUI;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class GameView extends JFrame implements KeyListener {
+public class GameView extends JPanel implements Runnable{
 
-    private Color backgroundColor = new Color(255, 255, 255);
+    private Color backgroundColor = new Color(0, 0, 0);
 
-    private Image brick;
+    private Vector2D size = new Vector2D(500, 500);
+
+    private Thread thread;
+
+    private KeyLogger keyLogger;
 
     private Player player = new Player(
             new Vector2D(10, 10),
             new Vector2D(30, 60)
     );
 
-    private KeyLogger keyLogger = new KeyLogger();
-
-    public GameView(){
-        setTitle("Brick Breaker Game CLone");
-        addKeyListener(this);
-        setSize(500, 500);
-        setLocation(400, 400);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+    public GameView() {
+        setPreferredSize(this.size);
         setBackground(this.backgroundColor);
-        setVisible(true);
-        loadPics();
-    }
-    public void loadPics(){
-        brick = new ImageIcon("Sprites//brick.png").getImage();
-
-
-        repaint();
+        setDoubleBuffered(true);
     }
 
-    public void paint(@NotNull Graphics g){ // 30 pixel gap on Y axesù
-        super.paint(g);
-        this.player.draw(g);
+    public GameView(Vector2D size) {
+        setPreferredSize(size);
+        setBackground(this.backgroundColor);
+        setDoubleBuffered(true);
+    }
+
+    public void setPreferredSize(Vector2D preferredSize) {
+
+        super.setPreferredSize(
+                new Dimension(
+                        preferredSize.getWidth(),
+                        preferredSize.getHeight()
+                )
+        );
+    }
+
+    public void startThread(KeyLogger keyLogger) {
+        // player settings
+        this.player.setColor(Color.WHITE);
+
+        // Keyboard logger
+        this.keyLogger = keyLogger;
+
+        this.thread = new Thread(this);
+        this.thread.start();
+    }
+
+    @Override
+    public void run() {
+        FPSManager gameLoop = new FPSManager();
+
+        while (this.thread != null) {
+
+            if (gameLoop.run()) {
+                update();
+
+                repaint();
+            }
+        }
     }
 
     public void update(){
-        Vector2D direction = new Vector2D();
-
-        if(keyLogger.getKeyState('w')) direction.add(0, -1);
-        if(keyLogger.getKeyState('a')) direction.add(-1, 0);
-        if(keyLogger.getKeyState('s')) direction.add(0, 1);
-        if(keyLogger.getKeyState('d')) direction.add(1, 0);
-        if(keyLogger.getKeyState(' ')) this.player.setPosition(30, 60);
 
 
-        this.player.position.add(direction);
-        repaint();
+        // Player movement
+        Vector2D move = new Vector2D();
+
+        if (keyLogger.getKeyState('w')) move.add(0, -1);
+        if (keyLogger.getKeyState('a')) move.add(-1, 0);
+        if (keyLogger.getKeyState('s')) move.add(0, 1);
+        if (keyLogger.getKeyState('d')) move.add(1, 0);
+
+        this.player.position.add(move);
     }
 
-    @Override
-    public void keyTyped(@NotNull KeyEvent e) {
-        //System.out.println(e.getKeyChar());
-    }
-
-    @Override
-    public void keyPressed(@NotNull KeyEvent e) {
-        keyLogger.setKeyState(e.getKeyChar(), true);
-    }
-
-    @Override
-    public void keyReleased(@NotNull KeyEvent e) {
-        keyLogger.setKeyState(e.getKeyChar(), false);
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        this.player.draw(g);
     }
 }

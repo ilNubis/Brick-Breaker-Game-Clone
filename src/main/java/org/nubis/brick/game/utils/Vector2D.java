@@ -10,12 +10,10 @@ public class Vector2D {
 
     private double mug;
 
-    private double degree = 0;
+    private double degree;
 
     public Vector2D(){
-        this.x = 0;
-        this.y = 0;
-        this.mug = 0;
+
     }
 
     public Vector2D(double x, double y){

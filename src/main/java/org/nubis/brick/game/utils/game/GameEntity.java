@@ -17,7 +17,9 @@ public class GameEntity {
 
     private Image sprite;
 
-    public Vector2D position = new Vector2D(0, 0);
+    private Color color = new Color(0, 0, 0);
+
+    public Vector2D position = new Vector2D();
 
     public GameEntity(String spritePath) {
         setSprite(spritePath);
@@ -55,7 +57,7 @@ public class GameEntity {
     public void draw(Graphics g){
         switch (this.drawMode){
             case AUTO -> {
-                g.setColor(new Color(0, 0, 0));
+                g.setColor(this.color);
                 switch (this.collideShape){
                     case RECT -> {
                         g.fillRect(
@@ -101,6 +103,9 @@ public class GameEntity {
     public void setPosition(int x, int y) {
         this.position = new Vector2D(x, y);
     }
+
+
+    public void setColor(Color newColor) { this.color = newColor; }
 
     public Vector2D getPosition() {
         return this.position;
